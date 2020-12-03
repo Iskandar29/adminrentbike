@@ -40,6 +40,7 @@
                 android:layout_height="170dp"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="5dp"
+                android:id="@+id/bike"
                 app:cardBackgroundColor="@color/gray"
                 android:layout_margin="10dp">
 
@@ -111,6 +112,7 @@
                 app:cardCornerRadius="12dp"
                 app:cardElevation="5dp"
                 app:cardBackgroundColor="@color/gray"
+                android:id="@+id/insert"
                 android:layout_margin="10dp">
 
                 <LinearLayout
@@ -123,13 +125,13 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/career"
+                        android:src="@drawable/bikee"
                         android:layout_marginTop="18dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Career"
+                        android:text="Insert Bike"
                         android:fontFamily="@font/googlesans_bold"
                         android:textSize="18sp"
                         android:textColor="@color/white"

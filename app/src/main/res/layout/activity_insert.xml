@@ -10,13 +10,16 @@
 
     android:background="@android:color/darker_gray">
 
+
+
     <EditText
         android:id="@+id/edt_kode"
         android:layout_width="350dp"
         android:textColor="@color/white"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:hint="Full name"
+        android:hint="Kode Sepeda"
+        android:textColorHint="@color/white"
         android:drawablePadding="10dp"
         android:background="@null"
         android:layout_marginBottom="12dp"/>
@@ -35,7 +38,8 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:hint="No KTP"
+        android:hint="Merk Sepeda"
+        android:textColorHint="@color/white"
         android:drawablePadding="10dp"
         android:background="@null"
         android:layout_marginBottom="12dp"/>
@@ -53,7 +57,8 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
-        android:hint="Email"
+        android:hint="Jenis Sepeda"
+        android:textColorHint="@color/white"
         android:drawablePadding="10dp"
         android:background="@null"
         android:layout_marginBottom="12dp"/>
@@ -71,7 +76,8 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
-        android:hint="Phone"
+        android:hint="Warna Sepeda"
+        android:textColorHint="@color/white"
         android:drawablePadding="10dp"
         android:background="@null"
         android:layout_marginBottom="12dp"/>
@@ -88,7 +94,8 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:hint="Address"
+        android:hint="Harga Sewa"
+        android:textColorHint="@color/white"
         android:drawablePadding="10dp"
         android:background="@null"
         android:layout_marginBottom="12dp"/>
@@ -100,11 +107,11 @@
         android:layout_marginBottom="20dp"/>
 
     <Button
-        android:id="@+id/btn_update"
+        android:id="@+id/btn_insert"
         android:textColorHint="@color/white"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="Update"
+        android:text="insert"
         android:textColor="@android:color/white"
         style="?android:attr/borderlessButtonStyle"
         android:layout_marginBottom="12dp"/>

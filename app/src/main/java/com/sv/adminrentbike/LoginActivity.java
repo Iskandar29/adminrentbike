@@ -3,6 +3,7 @@ package com.sv.adminrentbike;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,13 +19,18 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import static android.os.Build.ID;
 //import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
 public class LoginActivity extends AppCompatActivity {
-//    CircularProgressButton circularProgressButton;
+    //    CircularProgressButton circularProgressButton;
     public static final String TAG = LoginActivity.class.getSimpleName();
     private EditText edtEmail, edtPassword;
     private Button btnLogin;
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String ID = "id";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,11 +80,11 @@ public class LoginActivity extends AppCompatActivity {
 
                                             String id = response.getString("id");
 
-//                                            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-//                                            SharedPreferences.Editor editor = sharedPreferences.edit();
-//
-//                                            editor.putString(ID, id);
-//                                            editor.apply();
+                                            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                            editor.putString(ID, id);
+                                            editor.apply();
 
                                             Intent intent = new Intent(LoginActivity.this, BerandaActivity.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -91,7 +97,8 @@ public class LoginActivity extends AppCompatActivity {
                                         e.printStackTrace();
                                     }
                                 }
-                                    //ngecek error
+
+                                //ngecek error
                                 @Override
                                 public void onError(ANError error) {
                                     Log.e(TAG, "onErro+r: " + error.getLocalizedMessage());

@@ -2,6 +2,7 @@ package com.sv.adminrentbike;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,8 +12,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.sv.adminrentbike.adapter.adapteruser;
-import com.sv.adminrentbike.model.User;
+import com.sv.adminrentbike.model.Bike;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,25 +20,25 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class UserActivity extends AppCompatActivity {
-    public static final String TAG = UserActivity.class.getSimpleName();
+public class BikeActivity extends AppCompatActivity {
+    public static final String TAG = BikeActivity.class.getSimpleName();
 
-    private ArrayList<User> list = new ArrayList<>();
-    private RecyclerView rvCustomer;
-    private adapteruser adapteruser;
+    private ArrayList<Bike> list = new ArrayList<>();
+    private RecyclerView rvBike;
+    private adapterbike adapterbike;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customers);
-        rvCustomer = findViewById(R.id.rv_customers);
-        rvCustomer.setHasFixedSize(true);
-        getCustomers();
+        setContentView(R.layout.activity_bike);
+        rvBike = findViewById(R.id.rv_bike);
+        rvBike.setHasFixedSize(true);
+        getBike();
         showRecycler();
     }
 
-    private void getCustomers() {
-        AndroidNetworking.get("http://192.168.0.107/bikeapi/list.php")
+    private void getBike() {
+        AndroidNetworking.get("http://192.168.0.107/bikeapi/listbike.php")
                 .setPriority(Priority.LOW)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
@@ -53,18 +53,16 @@ public class UserActivity extends AppCompatActivity {
 
                                 for (int i = 0; i < result.length(); i++) {
                                     JSONObject item = result.getJSONObject(i);
-
-                                    User user = new User();
-                                    user.setId(item.getString("id"));
-                                    user.setName(item.getString("nama"));
-                                    user.setPhone(item.getString("nohp"));
-                                    user.setNoktp(item.getString("noktp"));
-                                    user.setEmail(item.getString("email"));
-                                    user.setAddress(item.getString("alamat"));
-                                    list.add(user);
+                                    Bike bike = new Bike();
+                                    bike.setId(item.getString("id"));
+                                    bike.setJenis(item.getString("jenis"));
+                                    bike.setKode(item.getString("kode"));
+                                    bike.setMerk(item.getString("merk"));
+                                    bike.setWarna(item.getString("warna"));
+                                    bike.setHargasewa(item.getString("hargasewa"));
+                                    list.add(bike);
                                 }
-
-                                adapteruser.notifyDataSetChanged();
+                                adapterbike.notifyDataSetChanged();
 
                             }
                         } catch (JSONException e) {
@@ -74,33 +72,34 @@ public class UserActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(ANError error) {
-//                        Log.e(TAG, "onError: " + error.getLocalizedMessage());
+                        Log.e(TAG, "onError: " + error.getLocalizedMessage());
 
                     }
                 });
     }
 
     private void showRecycler() {
-        rvCustomer.setLayoutManager(new LinearLayoutManager(this));
-        adapteruser = new adapteruser(list);
-        rvCustomer.setAdapter(adapteruser);
+        rvBike.setLayoutManager(new LinearLayoutManager(this));
+        adapterbike = new adapterbike(list);
+        rvBike.setAdapter(adapterbike);
 
-        adapteruser.setOnItemClickCallback(new adapteruser.OnItemClickCallback() {
+        adapterbike.setOnItemClickCallback(
+                new adapterbike.OnItemClickCallback() {
             @Override
-            public void onItemClicked(User data) {
+            public void onItemClicked(Bike data) {
                 showSelectedCustomer(data);
             }
         });
     }
 
-    private void showSelectedCustomer(User user) {
-        Intent intent = new Intent(this, UserDetailActivity.class);
-        intent.putExtra("Item Data", user);
+    private void showSelectedCustomer(Bike bike) {
+        Intent intent = new Intent(this, BikeDetailActivity.class);
+        intent.putExtra("Item Data", bike);
         startActivity(intent);
     }
     @Override
     protected void onRestart() {
         super.onRestart();
-        getCustomers();
+        getBike();
     }
 }

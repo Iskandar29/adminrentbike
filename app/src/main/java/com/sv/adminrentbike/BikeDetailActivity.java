@@ -14,83 +14,83 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.sv.adminrentbike.model.User;
+import com.sv.adminrentbike.model.Bike;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class UserDetailActivity extends AppCompatActivity {
-    public static final String TAG = UserDetailActivity.class.getSimpleName();
-    private EditText edtName, edtNoktp, edtEmail, edtPhone, edtAddress;
+public class BikeDetailActivity extends AppCompatActivity {
+    public static final String TAG = BikeDetailActivity.class.getSimpleName();
+    private EditText edtKode, edtMerk, edtJenis, edtWarna, edtHargasewa;
     private Button btnUpdate;
     private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_user);
+        setContentView(R.layout.activity_detail_bike);
 
-        edtName = findViewById(R.id.edt_kode);
-        edtNoktp = findViewById(R.id.edt_merk);
-        edtEmail = findViewById(R.id.edt_jenis);
-        edtPhone = findViewById(R.id.edt_warna);
-        edtAddress = findViewById(R.id.edt_hargasewa);
+        edtKode = findViewById(R.id.edt_kode);
+        edtMerk = findViewById(R.id.edt_merk);
+        edtJenis = findViewById(R.id.edt_jenis);
+        edtWarna = findViewById(R.id.edt_warna);
+        edtHargasewa = findViewById(R.id.edt_hargasewa);
         btnUpdate = findViewById(R.id.btn_update);
 
         Intent intent = getIntent();
-        User itemData = intent.getParcelableExtra("Item Data");
+        Bike itemData = intent.getParcelableExtra("Item Data");
 
         id = itemData.getId();
-        edtName.setText(itemData.getName());
-        edtNoktp.setText(itemData.getNoktp());
-        edtEmail.setText(itemData.getEmail());
-        edtPhone.setText(itemData.getPhone());
-        edtAddress.setText(itemData.getAddress());
+        edtKode.setText(itemData.getKode());
+        edtMerk.setText(itemData.getJenis());
+        edtJenis.setText(itemData.getMerk());
+        edtWarna.setText(itemData.getWarna());
+        edtHargasewa.setText(itemData.getHargasewa());
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String inputNama= edtName.getText().toString().trim();
-                String inputNoktp= edtNoktp.getText().toString().trim();
-                String inputEmail = edtEmail.getText().toString().trim();
-                String inputnohp = edtPhone.getText().toString().trim();
-                String inputAlamat = edtAddress.getText().toString().trim();
+                String inputKode= edtKode.getText().toString().trim();
+                String inputMerk= edtMerk.getText().toString().trim();
+                String inputJenis = edtJenis.getText().toString().trim();
+                String inputWarna = edtWarna.getText().toString().trim();
+                String inputHargasewa = edtHargasewa.getText().toString().trim();
 
                 boolean isEmpty = false;
 
-                if (inputNama.isEmpty()) {
+                if (inputKode.isEmpty()) {
                     isEmpty = true;
-                    edtName.setError("Nama lengkap harus diisi");
+                    edtKode.setError("Kode harus diisi");
                 }
 
-                if (inputNoktp.isEmpty()) {
+                if (inputMerk.isEmpty()) {
                     isEmpty = true;
-                    edtNoktp.setError("No KTP harus diisi");
+                    edtMerk.setError("Merk harus diisi");
                 }
 
-                if (inputEmail.isEmpty()) {
+                if (inputJenis.isEmpty()) {
                     isEmpty = true;
-                    edtEmail.setError("Email harus diisi");
+                    edtJenis.setError("Jenis harus diisi");
                 }
 
-                if (inputnohp.isEmpty()) {
+                if (inputWarna.isEmpty()) {
                     isEmpty = true;
-                    edtPhone.setError("Nomor telepon harus diisi");
+                    edtWarna.setError("Warna harus diisi");
                 }
 
-                if (inputAlamat.isEmpty()) {
+                if (inputHargasewa.isEmpty()) {
                     isEmpty = true;
-                    edtAddress.setError("Alamat Number harus diisi");
+                    edtHargasewa.setError("Harga Sewa harus diisi");
                 }
 
                 if (!isEmpty) {
-                    AndroidNetworking.post("http://192.168.0.107/bikeapi/update.php")
+                    AndroidNetworking.post("http://192.168.0.107/bikeapi/updatebike.php")
                             .addBodyParameter("id", id)
-                            .addBodyParameter("nama", inputNama)
-                            .addBodyParameter("noktp", inputNoktp)
-                            .addBodyParameter("email", inputEmail)
-                            .addBodyParameter("nohp", inputnohp)
-                            .addBodyParameter("alamat", inputAlamat)
+                            .addBodyParameter("kode", inputKode)
+                            .addBodyParameter("merk", inputMerk)
+                            .addBodyParameter("jenis", inputJenis)
+                            .addBodyParameter("warna", inputWarna)
+                            .addBodyParameter("hargasewa", inputHargasewa)
                             .setPriority(Priority.MEDIUM)
                             .build()
                             .getAsJSONObject(new JSONObjectRequestListener() {
@@ -101,10 +101,10 @@ public class UserDetailActivity extends AppCompatActivity {
                                         String message = response.getString("message");
 
                                         if (status.equals("success")) {
-                                            Toast.makeText(UserDetailActivity.this, message, Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(BikeDetailActivity.this, message, Toast.LENGTH_SHORT).show();
                                             finish();
                                         } else {
-                                            Toast.makeText(UserDetailActivity.this, message, Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(BikeDetailActivity.this, message, Toast.LENGTH_SHORT).show();
                                         }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
